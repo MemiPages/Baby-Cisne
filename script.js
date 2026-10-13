@@ -16,19 +16,19 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// ── MUSIC + VIDEO ───────────────────────────────────────────
-// La canción se pausa (con fade) cuando suena el video de los latidos
-// y vuelve sola cuando el video se pausa o termina.
+// ── MUSIC + LATIDOS ───────────────────────────────────────────
+// La canción se pausa (con fade) cuando suena el audio de los latidos
+// y vuelve sola cuando ese audio se pausa o termina.
 const MAX_VOL   = 0.75;
 const audio     = document.getElementById('bgAudio');
-const video     = document.getElementById('heartVideo');
+const heart     = document.getElementById('heartAudio');
 const btn       = document.getElementById('musicBtn');
 const iconPlay  = document.getElementById('iconPlay');
 const iconPause = document.getElementById('iconPause');
 const tooltip   = btn.querySelector('.music-tooltip');
 
 let fadeTimer = null;
-let resumeAfterVideo = false;   // true si la canción sonaba cuando empezó el video
+let resumeAfterHeart = false;   // true si la canción sonaba cuando empezaron los latidos
 
 function setPlaying(playing) {
   iconPlay.style.display  = playing ? 'none'  : 'block';
@@ -62,10 +62,10 @@ function playMusic() {
 btn.addEventListener('click', () => {
   tooltip.classList.add('hidden');
 
-  // Si el video está sonando, lo pausamos para que no se encimen los audios
-  if (!video.paused) {
-    resumeAfterVideo = false;
-    video.pause();
+  // Si los latidos están sonando, los pausamos para que no se encimen los audios
+  if (!heart.paused) {
+    resumeAfterHeart = false;
+    heart.pause();
   }
 
   if (audio.paused) {
@@ -77,30 +77,30 @@ btn.addEventListener('click', () => {
   }
 });
 
-// Al dar play al video: bajar y pausar la canción
-video.addEventListener('play', () => {
+// Al dar play a los latidos: bajar y pausar la canción
+heart.addEventListener('play', () => {
   if (audio.paused) return;
-  resumeAfterVideo = true;
+  resumeAfterHeart = true;
   fadeTo(0, 300, () => {
     audio.pause();
     setPlaying(false);
   });
 });
 
-// Al pausar o terminar el video: regresar la canción
+// Al pausar o terminar los latidos: regresar la canción
 function resumeMusic() {
-  if (!resumeAfterVideo || document.hidden) return;
-  resumeAfterVideo = false;
+  if (!resumeAfterHeart || document.hidden) return;
+  resumeAfterHeart = false;
   playMusic();
 }
-video.addEventListener('pause', resumeMusic);
-video.addEventListener('ended', resumeMusic);
+heart.addEventListener('pause', resumeMusic);
+heart.addEventListener('ended', resumeMusic);
 
 // ── PAUSE ON BLUR ───────────────────────────────────────────
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) return;
-  resumeAfterVideo = false;
-  if (!video.paused) video.pause();
+  resumeAfterHeart = false;
+  if (!heart.paused) heart.pause();
   if (!audio.paused) {
     clearInterval(fadeTimer);
     audio.pause();

@@ -349,30 +349,20 @@ h2 {
   box-shadow: 0 6px 24px var(--shadow);
 }
 
-.heart-video {
+.couple-img {
   display: block;
-  width: 100%;
-  max-height: 70vh;
-  border-radius: 16px;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-}
-
-.duo {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.duo img {
-  display: block;
-  width: 100%;
+  width: min(100%, 320px);
   height: auto;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  object-position: center 35%;
+  margin: 0 auto;
   border-radius: 16px;
   border: 1px solid var(--border);
   box-shadow: 0 6px 24px var(--shadow);
+}
+
+.heart-audio {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
 }
 
 /* ── RSVP ────────────────────────────────────────────────── */
