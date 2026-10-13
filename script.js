@@ -96,6 +96,50 @@ function resumeMusic() {
 heart.addEventListener('pause', resumeMusic);
 heart.addEventListener('ended', resumeMusic);
 
+// ── REPRODUCTOR DE LATIDOS (botón de corazón + barra) ───────
+const heartPlayer = document.getElementById('heartPlayer');
+const heartBtn    = document.getElementById('heartBtn');
+const heartSeek   = document.getElementById('heartSeek');
+const heartCur    = document.getElementById('heartCur');
+const heartDur    = document.getElementById('heartDur');
+
+function fmtTime(t) {
+  if (!isFinite(t)) return '0:00';
+  return Math.floor(t / 60) + ':' + pad(Math.floor(t % 60));
+}
+
+function syncHeartUI() {
+  const dur = heart.duration;
+  const pct = isFinite(dur) && dur > 0 ? (heart.currentTime / dur) * 100 : 0;
+  heartSeek.value = pct;
+  heartSeek.style.setProperty('--pct', pct + '%');
+  heartCur.textContent = fmtTime(heart.currentTime);
+  heartDur.textContent = fmtTime(dur);
+}
+
+function setHeartPlaying(playing) {
+  heartPlayer.classList.toggle('playing', playing);
+  heartBtn.setAttribute('aria-label', playing ? 'Pausar los latidos' : 'Escuchar los latidos');
+}
+
+heartBtn.addEventListener('click', () => {
+  if (heart.paused) heart.play().catch(() => {});
+  else heart.pause();
+});
+
+heartSeek.addEventListener('input', () => {
+  if (isFinite(heart.duration)) {
+    heart.currentTime = (heartSeek.value / 100) * heart.duration;
+    syncHeartUI();
+  }
+});
+
+heart.addEventListener('play',  () => setHeartPlaying(true));
+heart.addEventListener('pause', () => setHeartPlaying(false));
+heart.addEventListener('ended', () => { setHeartPlaying(false); syncHeartUI(); });
+heart.addEventListener('timeupdate',     syncHeartUI);
+heart.addEventListener('loadedmetadata', syncHeartUI);
+
 // ── PAUSE ON BLUR ───────────────────────────────────────────
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) return;

@@ -359,10 +359,120 @@ h2 {
   box-shadow: 0 6px 24px var(--shadow);
 }
 
-.heart-audio {
+/* ── REPRODUCTOR DE LATIDOS ──────────────────────────────── */
+.heart-player {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 22px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, var(--bg2), #F1DFD8);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  text-align: left;
+}
+
+.heart-btn {
+  position: relative;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(120, 80, 76, 0.55);
+  background: rgba(120, 80, 76, 0.78);
+  color: #FFF6F3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+  transition: background 0.2s, transform 0.2s;
+}
+.heart-btn:hover { background: rgba(120, 80, 76, 0.95); transform: scale(1.06); }
+.heart-btn:active { transform: scale(0.96); }
+.heart-btn:focus-visible,
+.heart-seek:focus-visible {
+  outline: 3px solid var(--rose-dark);
+  outline-offset: 3px;
+}
+
+/* Anillo que palpita, igual que el botón de música */
+.heart-btn::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(120, 80, 76, 0.4);
+  animation: musicPulse 2s ease-out infinite;
+}
+
+/* Mientras suena: el corazón late (lub-dub) y el anillo sigue el ritmo */
+.heart-player.playing .heart-btn svg { animation: heartThump 0.86s ease-in-out infinite; }
+.heart-player.playing .heart-btn::after { animation-duration: 0.86s; }
+@keyframes heartThump {
+  0%, 100% { transform: scale(1); }
+  15%      { transform: scale(1.22); }
+  30%      { transform: scale(1); }
+  45%      { transform: scale(1.14); }
+  60%      { transform: scale(1); }
+}
+
+.heart-track { flex: 1; min-width: 0; }
+
+.heart-seek {
+  --pct: 0%;
+  -webkit-appearance: none;
+  appearance: none;
   display: block;
   width: 100%;
-  margin-top: 20px;
+  height: 22px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.heart-seek::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 6px;
+  background: linear-gradient(to right, var(--rose-dark) var(--pct), var(--rose-light) var(--pct));
+}
+.heart-seek::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -6px;
+  border-radius: 50%;
+  border: 2px solid #FFF6F3;
+  background: var(--rose-dark);
+  box-shadow: 0 1px 6px rgba(94, 74, 70, 0.35);
+}
+.heart-seek::-moz-range-track {
+  height: 6px;
+  border-radius: 6px;
+  background: var(--rose-light);
+}
+.heart-seek::-moz-range-progress {
+  height: 6px;
+  border-radius: 6px;
+  background: var(--rose-dark);
+}
+.heart-seek::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #FFF6F3;
+  background: var(--rose-dark);
+  box-shadow: 0 1px 6px rgba(94, 74, 70, 0.35);
+}
+
+.heart-times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: var(--text-light);
+  font-variant-numeric: tabular-nums;
 }
 
 /* ── RSVP ────────────────────────────────────────────────── */
@@ -380,7 +490,7 @@ h2 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 2.2rem;
   font-weight: 600;
-  color: var(--rose-dark);
+  color: var(--text);
   margin-bottom: 8px;
   display: block;
 }
@@ -609,7 +719,7 @@ footer::before {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .card { transition: none; }
-  .scroll-hint, .music-btn::after, .footer-heart { animation: none; }
+  .scroll-hint, .music-btn::after, .heart-btn::after, .heart-player.playing .heart-btn svg, .footer-heart { animation: none; }
   .hero-inner, .eyebrow, .hero-swans, h1, .hero-hosts, .date-badge, .hero-quote {
     animation: none;
     opacity: 1;
