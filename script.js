@@ -1,6 +1,7 @@
 // ── COUNTDOWN ──────────────────────────────────────────────
-// Domingo 1 de noviembre de 2026, 3:00 PM (hora local del visitante)
-const target = new Date('2026-11-01T15:00:00');
+// Domingo 1 de noviembre de 2026, 3:00 PM hora de Ciudad Juárez (UTC-7, ya terminó el horario de verano).
+// Con la zona fija, la cuenta es la misma para cualquier invitado, esté donde esté.
+const target = new Date('2026-11-01T15:00:00-07:00');
 
 function pad(n) { return String(n).padStart(2, '0'); }
 
