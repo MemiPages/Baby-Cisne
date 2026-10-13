@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F6DFDB">
+<meta name="description" content="Te invitamos al baby shower de Aranthxa Yamel — Domingo 1 de noviembre, 3:00 a 8:00 PM, Jardín las Palmas.">
+<title>Baby Shower de Aranthxa Yamel — 1 de Noviembre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<noscript><style>.card { opacity: 1; transform: none; }</style></noscript>
+</head>
+<body>
+
+<!-- Audio de fondo -->
+<audio id="bgAudio" loop preload="auto">
+  <source src="audio/cancion.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Botón de música -->
+<button class="music-btn" id="musicBtn" aria-label="Reproducir música">
+  <svg id="iconPlay" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  <svg id="iconPause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  <span class="music-tooltip">Dale play a la música</span>
+</button>
+
+<!-- Barra de progreso de scroll -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Plumas cayendo (toda la página) -->
+<div class="feathers-container" id="feathers"></div>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+
+  <div class="hero-inner">
+    <p class="eyebrow">Baby Shower</p>
+
+    <!-- Par de cisnes -->
+    <svg class="hero-swans" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dos cisnes frente a frente con un corazón">
+      <defs>
+        <g id="swan">
+          <!-- contorno del cuello -->
+          <path d="M160 128 C166 104 140 96 144 76 C146 62 158 54 168 56" stroke="#D9A8A2" stroke-width="17" stroke-linecap="round" fill="none"/>
+          <!-- cuerpo -->
+          <path d="M12 98 C30 130 62 160 108 162 C146 164 170 146 166 124 C150 114 130 106 112 104 C80 104 40 108 12 98 Z" fill="#fff" stroke="#D9A8A2" stroke-width="2.2" stroke-linejoin="round"/>
+          <!-- relleno del cuello (tapa la unión con el cuerpo) -->
+          <path d="M160 128 C166 104 140 96 144 76 C146 62 158 54 168 56" stroke="#fff" stroke-width="13" stroke-linecap="round" fill="none"/>
+          <!-- ala -->
+          <path d="M52 126 C78 108 120 110 138 128 C118 144 78 144 52 126 Z" fill="#FBEDEA" stroke="#D9A8A2" stroke-width="1.4" stroke-linejoin="round"/>
+          <path d="M68 128 C88 120 110 120 126 127" stroke="#D9A8A2" stroke-width="1" fill="none" stroke-linecap="round"/>
+          <path d="M76 135 C94 130 108 130 120 133" stroke="#D9A8A2" stroke-width="1" fill="none" stroke-linecap="round"/>
+          <!-- pico y ojo -->
+          <path d="M172 52 L190 60 L173 64 Z" fill="#E9B7A8" stroke="#D9A8A2" stroke-width="1.2" stroke-linejoin="round"/>
+          <circle cx="168" cy="54" r="1.8" fill="#6B5550"/>
+        </g>
+      </defs>
+      <use href="#swan"/>
+      <use href="#swan" transform="translate(400,0) scale(-1,1)"/>
+      <path d="M200 52 C200 52 187 41 187 32 C187 26 192 23 196 26 C198 27.5 199.5 29 200 30 C200.5 29 202 27.5 204 26 C208 23 213 26 213 32 C213 41 200 52 200 52Z" fill="#E7B5AE"/>
+    </svg>
+
+    <h1>Aranthxa Yamel</h1>
+    <p class="hero-hosts">Azul Aranthxa &amp; Luis Mariano te invitan a celebrar su llegada</p>
+
+    <div class="date-badge">
+      <span class="date">Domingo 1 de Noviembre de 2026</span>
+      <span class="time">3:00 PM — 8:00 PM</span>
+    </div>
+
+    <p class="hero-quote">
+      &ldquo;Un pequeño cisne viene en camino y, con él, el amor más grande que hemos conocido. Acompáñanos a darle la bienvenida.&rdquo;
+    </p>
+  </div>
+
+  <!-- Indicador de scroll -->
+  <div class="scroll-hint" id="scrollHint">
+    <span>Desliza para ver más</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </div>
+</section>
+
+<!-- Divisor con pluma -->
+<div class="soft-divider" aria-hidden="true">
+  <svg viewBox="0 0 300 44" xmlns="http://www.w3.org/2000/svg">
+    <line x1="30" y1="22" x2="132" y2="22" stroke="#D9A8A2" stroke-opacity="0.6"/>
+    <line x1="168" y1="22" x2="270" y2="22" stroke="#D9A8A2" stroke-opacity="0.6"/>
+    <g transform="translate(150 22) rotate(35) translate(-8 -17)">
+      <path d="M9 1C15 9 14 22 6 33C2 24 1 12 9 1Z" fill="#F2D0CB" stroke="#D9A8A2" stroke-width="0.8"/>
+      <path d="M9 3C8 14 7 24 6 33" stroke="#D9A8A2" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+    </g>
+  </svg>
+</div>
+
+<div class="content-flow">
+
+  <!-- Cuenta regresiva -->
+  <article class="card">
+    <div class="countdown-wrap">
+      <p class="countdown-label">Faltan</p>
+      <div class="ornament-line">✦ ♥ ✦</div>
+      <div class="countdown">
+        <div class="countdown-item"><span id="days">0</span><small>Días</small></div>
+        <div class="countdown-item"><span id="hours">00</span><small>Horas</small></div>
+        <div class="countdown-item"><span id="minutes">00</span><small>Minutos</small></div>
+        <div class="countdown-item"><span id="seconds">00</span><small>Segundos</small></div>
+      </div>
+      <p class="countdown-sub">para el baby shower</p>
+    </div>
+  </article>
+
+  <!-- Ultrasonido -->
+  <article class="card media-card">
+    <span class="section-label">Nuestro pequeño cisne</span>
+    <h2>Ya viene en camino</h2>
+    <img class="ultrasound-img"
+         src="images/baby1.jpg" data-base="images/baby1" data-exts="jpg,jpeg,png,webp"
+         width="1034" height="1474" loading="lazy"
+         alt="Ultrasonido de Aranthxa Yamel">
+  </article>
+
+  <!-- Latidos -->
+  <article class="card media-card">
+    <span class="section-label">Su corazón</span>
+    <h2>Escucha sus latidos</h2>
+    <video id="heartVideo" class="heart-video" controls playsinline preload="metadata">
+      <source src="videos/babyHearth.mp4" type="video/mp4">
+      Tu navegador no puede reproducir este video.
+    </video>
+  </article>
+
+  <!-- Los papás -->
+  <article class="card media-card">
+    <span class="section-label">Los papás</span>
+    <h2>Azul &amp; Luis Mariano</h2>
+    <div class="duo">
+      <img src="images/pareja1.jpg" data-base="images/pareja1" data-exts="jpg,jpeg,png,webp"
+           width="1024" height="1280" loading="lazy"
+           alt="Azul y Luis Mariano sosteniendo el ultrasonido frente a la cámara">
+      <img src="images/pareja2.jpg" data-base="images/pareja2" data-exts="jpg,jpeg,png,webp"
+           width="1068" height="1600" loading="lazy"
+           alt="Azul y Luis Mariano besándose entre el humo del gender reveal">
+    </div>
+  </article>
+
+  <!-- Confirmación de asistencia -->
+  <article class="card rsvp">
+    <span class="section-label">Confirmación de Asistencia</span>
+    <h2>¿Nos acompañas?</h2>
+    <p>Será un gusto compartir este día contigo. Confirma tu asistencia para que podamos preparar todo con mucho cariño.</p>
+    <!-- TODO: reemplazar "#" por el link del formulario de confirmación de este evento -->
+    <a class="btn" target="_blank" rel="noopener" href="#">
+      Confirmar asistencia
+    </a>
+  </article>
+
+  <!-- Vestimenta -->
+  <article class="card dresscode">
+    <span class="section-label">Vestimenta</span>
+    <span class="dresscode-type">Libre</span>
+    <p class="dresscode-note">No hay código de vestimenta. Ven con lo que te haga sentir cómodo.</p>
+  </article>
+
+  <!-- Ubicación -->
+  <article class="card location-card">
+    <span class="section-label">Ubicación</span>
+    <div class="location-info">
+      <p class="location-name">Jardín las Palmas</p>
+      <p class="location-addr">C. Ruanda 7658, Col. Campestre Virreyes<br>Chihuahua, Chih.</p>
+    </div>
+    <img class="map-img"
+         src="images/map-chihuahua.png" data-base="images/map-chihuahua" data-exts="png,jpg,jpeg,webp"
+         width="1058" height="691" loading="lazy"
+         alt="Mapa de la ubicación de Jardín las Palmas">
+    <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Jard%C3%ADn+las+Palmas+C.+Ruanda+7658+Campestre+Virreyes+Chihuahua">
+      Cómo llegar
+    </a>
+  </article>
+
+  <!-- Fotografías -->
+  <article class="card photo-section">
+    <span class="section-label">Comparte tus Fotografías</span>
+    <h2>Recuerdos del día</h2>
+    <img class="qr-img"
+         src="images/qr-placeholder.png" data-base="images/qr-placeholder" data-exts="png,jpg,jpeg,webp"
+         width="160" height="160" loading="lazy"
+         alt="Código QR para compartir fotografías">
+    <p class="photo-note">Escanea el código QR o toca el botón para subir tus fotografías del baby shower.</p>
+    <!-- TODO: reemplazar "#" por el link del álbum compartido de este evento -->
+    <a class="btn" target="_blank" rel="noopener" href="#">Subir fotografías</a>
+  </article>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <span class="footer-thanks">Gracias por acompañarnos a recibir a Aranthxa</span>
+  <span class="footer-names">Azul &amp; Luis Mariano</span>
+  <span class="footer-heart">♥</span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
