@@ -804,3 +804,18 @@ footer::before {
 .video-playing .reveal-play::after,
 .video-playing .footer-heart,
 .video-playing .scroll-hint { animation: none; }
+
+/* ── REPRODUCTOR DEL VIDEO (reusa el estilo del de latidos) ─── */
+.video-player { width: min(100%, 320px); margin: 16px auto 0; }
+.video-player .heart-btn svg { display: block; }
+.video-player .vp-play { margin-left: 2px; }     /* centra ópticamente el triángulo */
+.video-player .vp-pause { display: none; }
+.video-player.playing .vp-play { display: none; }
+.video-player.playing .vp-pause { display: block; }
+.video-player.playing .heart-btn::after { animation: none; opacity: 0; }
+.reveal-video { cursor: pointer; }
+/* Oculta cualquier control nativo que el navegador intente mostrar */
+.reveal-video::-webkit-media-controls,
+.reveal-video::-webkit-media-controls-panel,
+.reveal-video::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
+.video-player.playing .heart-btn svg { animation: none; }   /* sin latido: aquí son iconos de play/pausa */

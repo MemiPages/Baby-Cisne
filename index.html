@@ -151,8 +151,11 @@
     <span class="section-label">Los papás</span>
     <h2>Azul &amp; Mariano</h2>
     <div class="reveal" id="revealWrap">
-      <video id="revealVideo" class="reveal-video" playsinline preload="auto">
-        <source src="video/parejaReveal.mp4" type="video/mp4">
+      <video id="revealVideo" class="reveal-video" playsinline preload="auto"
+             disablepictureinpicture disableremoteplayback
+             controlslist="nodownload nofullscreen noremoteplayback"
+             aria-label="Video de Azul y Mariano">
+        <source src="video/parejaReveal2.mp4" type="video/mp4">
       </video>
       <button class="reveal-cover" id="revealBtn" type="button" aria-label="Reproducir el video de Azul y Mariano">
         <img class="reveal-img"
@@ -163,6 +166,17 @@
           <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
         </span>
       </button>
+    </div>
+    <!-- Reproductor del video (mismo formato que el de los latidos) -->
+    <div class="heart-player video-player" id="videoPlayer">
+      <button class="heart-btn" id="videoBtn" type="button" aria-label="Reproducir el video">
+        <svg class="vp-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="vp-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+      </button>
+      <div class="heart-track">
+        <input class="heart-seek" id="videoSeek" type="range" min="0" max="100" step="0.1" value="0" aria-label="Posición del video">
+        <div class="heart-times"><span id="videoCur">0:00</span><span id="videoDur">0:00</span></div>
+      </div>
     </div>
   </article>
 

@@ -100,13 +100,58 @@ fgMedia.forEach(media => {
   media.addEventListener('ended', resumeMusic);
 });
 
-// ── VIDEO DE LA PAREJA: tocar la foto reproduce el video ────
-const revealWrap = document.getElementById('revealWrap');
-document.getElementById('revealBtn').addEventListener('click', () => {
-  revealWrap.classList.add('playing');   // oculta la foto y el botón
-  reveal.controls = true;
-  reveal.play().catch(() => {});
+// ── VIDEO DE LA PAREJA: reproductor propio (sin controles nativos) ──
+const revealWrap  = document.getElementById('revealWrap');
+const videoPlayer = document.getElementById('videoPlayer');
+const videoBtn    = document.getElementById('videoBtn');
+const videoSeek   = document.getElementById('videoSeek');
+const videoCur    = document.getElementById('videoCur');
+const videoDur    = document.getElementById('videoDur');
+
+function syncVideoUI() {
+  const dur = reveal.duration;
+  const pct = isFinite(dur) && dur > 0 ? (reveal.currentTime / dur) * 100 : 0;
+  videoSeek.value = pct;
+  videoSeek.style.setProperty('--pct', pct + '%');
+  videoCur.textContent = fmtTime(reveal.currentTime);
+  videoDur.textContent = fmtTime(dur);
+}
+
+function setVideoUI(playing) {
+  videoPlayer.classList.toggle('playing', playing);
+  videoBtn.setAttribute('aria-label', playing ? 'Pausar el video' : 'Reproducir el video');
+}
+
+function toggleVideo() {
+  if (reveal.paused) {
+    revealWrap.classList.add('playing');   // oculta la foto de portada
+    reveal.play().catch(() => {});
+  } else {
+    reveal.pause();
+  }
+}
+
+document.getElementById('revealBtn').addEventListener('click', toggleVideo);
+videoBtn.addEventListener('click', toggleVideo);
+reveal.addEventListener('click', toggleVideo);   // tocar el video lo pausa / reanuda
+
+videoSeek.addEventListener('input', () => {
+  if (isFinite(reveal.duration)) {
+    reveal.currentTime = (videoSeek.value / 100) * reveal.duration;
+    syncVideoUI();
+  }
 });
+
+reveal.addEventListener('play',  () => setVideoUI(true));
+reveal.addEventListener('pause', () => setVideoUI(false));
+reveal.addEventListener('ended', () => {
+  setVideoUI(false);
+  reveal.currentTime = 0;                  // al terminar vuelve la portada
+  revealWrap.classList.remove('playing');
+  syncVideoUI();
+});
+reveal.addEventListener('timeupdate',     syncVideoUI);
+reveal.addEventListener('loadedmetadata', syncVideoUI);
 
 // ── REPRODUCTOR DE LATIDOS (botón de corazón + barra) ───────
 const heartPlayer = document.getElementById('heartPlayer');
