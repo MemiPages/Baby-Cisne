@@ -16,19 +16,21 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// ── MUSIC + LATIDOS ───────────────────────────────────────────
-// La canción se pausa (con fade) cuando suena el audio de los latidos
-// y vuelve sola cuando ese audio se pausa o termina.
+// ── MUSIC + MEDIOS (latidos / video) ────────────────────────
+// La canción se pausa (con fade) cuando suena el audio de los latidos o el
+// video de la pareja, y vuelve sola cuando los dos están pausados o terminan.
 const MAX_VOL   = 0.75;
 const audio     = document.getElementById('bgAudio');
 const heart     = document.getElementById('heartAudio');
+const reveal    = document.getElementById('revealVideo');
+const fgMedia   = [heart, reveal];
 const btn       = document.getElementById('musicBtn');
 const iconPlay  = document.getElementById('iconPlay');
 const iconPause = document.getElementById('iconPause');
 const tooltip   = btn.querySelector('.music-tooltip');
 
 let fadeTimer = null;
-let resumeAfterHeart = false;   // true si la canción sonaba cuando empezaron los latidos
+let resumeAfterMedia = false;   // true si la canción sonaba cuando empezó un latido/video
 
 function setPlaying(playing) {
   iconPlay.style.display  = playing ? 'none'  : 'block';
@@ -62,11 +64,9 @@ function playMusic() {
 btn.addEventListener('click', () => {
   tooltip.classList.add('hidden');
 
-  // Si los latidos están sonando, los pausamos para que no se encimen los audios
-  if (!heart.paused) {
-    resumeAfterHeart = false;
-    heart.pause();
-  }
+  // Si suenan los latidos o el video, los pausamos para que no se encimen
+  resumeAfterMedia = false;
+  fgMedia.forEach(m => { if (!m.paused) m.pause(); });
 
   if (audio.paused) {
     playMusic();
@@ -77,24 +77,36 @@ btn.addEventListener('click', () => {
   }
 });
 
-// Al dar play a los latidos: bajar y pausar la canción
-heart.addEventListener('play', () => {
-  if (audio.paused) return;
-  resumeAfterHeart = true;
-  fadeTo(0, 300, () => {
-    audio.pause();
-    setPlaying(false);
-  });
-});
-
-// Al pausar o terminar los latidos: regresar la canción
+// Regresar la canción cuando ya no suena ningún latido ni video
 function resumeMusic() {
-  if (!resumeAfterHeart || document.hidden) return;
-  resumeAfterHeart = false;
+  if (!resumeAfterMedia || document.hidden) return;
+  if (!fgMedia.every(m => m.paused)) return;
+  resumeAfterMedia = false;
   playMusic();
 }
-heart.addEventListener('pause', resumeMusic);
-heart.addEventListener('ended', resumeMusic);
+
+fgMedia.forEach(media => {
+  media.addEventListener('play', () => {
+    // Solo uno a la vez: si empieza uno, pausamos el otro
+    fgMedia.forEach(other => { if (other !== media && !other.paused) other.pause(); });
+    if (audio.paused) return;
+    resumeAfterMedia = true;
+    fadeTo(0, 300, () => {
+      audio.pause();
+      setPlaying(false);
+    });
+  });
+  media.addEventListener('pause', resumeMusic);
+  media.addEventListener('ended', resumeMusic);
+});
+
+// ── VIDEO DE LA PAREJA: tocar la foto reproduce el video ────
+const revealWrap = document.getElementById('revealWrap');
+document.getElementById('revealBtn').addEventListener('click', () => {
+  revealWrap.classList.add('playing');   // oculta la foto y el botón
+  reveal.controls = true;
+  reveal.play().catch(() => {});
+});
 
 // ── REPRODUCTOR DE LATIDOS (botón de corazón + barra) ───────
 const heartPlayer = document.getElementById('heartPlayer');
@@ -143,8 +155,8 @@ heart.addEventListener('loadedmetadata', syncHeartUI);
 // ── PAUSE ON BLUR ───────────────────────────────────────────
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) return;
-  resumeAfterHeart = false;
-  if (!heart.paused) heart.pause();
+  resumeAfterMedia = false;
+  fgMedia.forEach(m => { if (!m.paused) m.pause(); });
   if (!audio.paused) {
     clearInterval(fadeTimer);
     audio.pause();
@@ -236,6 +248,16 @@ if (!reduceMotion) {
   setInterval(createHeroFeather, 1000);
   for (let i = 0; i < 8; i++) setTimeout(createHeroFeather, i * 400);
 }
+
+// ── CONFIRMAR ASISTENCIA POR WHATSAPP ───────────────────────
+// Pon aquí el número: código de país + número, solo dígitos.
+// Ejemplo para México: '526561234567'  (52 + 10 dígitos)
+// Mientras esté vacío, el botón abre WhatsApp para elegir contacto (útil para probar).
+const WHATSAPP_NUMBER  = '';
+const WHATSAPP_MESSAGE = 'Hola, confirmo mi asistencia al baby shower de Aranthxa Yamel el domingo 1 de noviembre. Mi nombre es: ';
+
+document.getElementById('rsvpBtn').href =
+  'https://wa.me/' + WHATSAPP_NUMBER.replace(/\D/g, '') + '?text=' + encodeURIComponent(WHATSAPP_MESSAGE);
 
 // ── IMÁGENES: PRUEBA OTRAS EXTENSIONES SI FALLA LA PRIMERA ──
 // (Quita esto cuando confirmes la extensión real de cada imagen

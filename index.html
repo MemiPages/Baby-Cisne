@@ -23,7 +23,7 @@
 <button class="music-btn" id="musicBtn" aria-label="Reproducir música">
   <svg id="iconPlay" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
   <svg id="iconPause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-  <span class="music-tooltip">Reproduce la música que nos une</span>
+  <span class="music-tooltip">Dale play a la música</span>
 </button>
 
 <!-- Barra de progreso de scroll -->
@@ -71,7 +71,7 @@
     </div>
 
     <p class="hero-quote">
-      &ldquo;Un pequeño cisne viene en camino y, con él, el amor más grande que hemos conocido. Acompáñanos a darle la bienvenida.&rdquo;
+      &ldquo;Una pequeña cisne viene en camino y, con ella, el amor más grande que hemos conocido. Acompáñanos a darle la bienvenida.&rdquo;
     </p>
   </div>
 
@@ -113,16 +113,6 @@
     </div>
   </article>
 
-  <!-- Ultrasonido -->
-  <article class="card media-card">
-    <span class="section-label">Nuestro pequeño cisne</span>
-    <h2>Ya viene en camino</h2>
-    <img class="ultrasound-img"
-         src="images/baby1.jpg" data-base="images/baby1" data-exts="jpg,jpeg,png,webp"
-         width="1034" height="1474" loading="lazy"
-         alt="Ultrasonido de Aranthxa Yamel">
-  </article>
-
   <!-- Latidos -->
   <article class="card media-card">
     <span class="section-label">Su corazón</span>
@@ -130,7 +120,7 @@
     <img class="couple-img"
          src="images/pareja1.jpg" data-base="images/pareja1" data-exts="jpg,jpeg,png,webp"
          width="1024" height="1280" loading="lazy"
-         alt="Azul y Luis sosteniendo el ultrasonido frente a la cámara">
+         alt="Azul y Mariano sosteniendo el ultrasonido frente a la cámara">
     <!-- Reproductor de latidos -->
     <div class="heart-player" id="heartPlayer">
       <button class="heart-btn" id="heartBtn" type="button" aria-label="Escuchar los latidos">
@@ -146,24 +136,44 @@
     </audio>
   </article>
 
+  <!-- Ultrasonido -->
+  <article class="card media-card">
+    <span class="section-label">Nuestra pequeña cisne</span>
+    <h2>Ya viene en camino</h2>
+    <img class="ultrasound-img"
+         src="images/baby1.jpg" data-base="images/baby1" data-exts="jpg,jpeg,png,webp"
+         width="1034" height="1474" loading="lazy"
+         alt="Ultrasonido de Aranthxa Yamel">
+  </article>
+
   <!-- Los papás -->
   <article class="card media-card">
     <span class="section-label">Los papás</span>
-    <h2>Azul &amp; Luis</h2>
-    <img class="couple-img"
-         src="images/pareja2.jpg" data-base="images/pareja2" data-exts="jpg,jpeg,png,webp"
-         width="1068" height="1600" loading="lazy"
-         alt="Azul y Luis besándose entre el humo del gender reveal">
+    <h2>Azul &amp; Mariano</h2>
+    <div class="reveal" id="revealWrap">
+      <video id="revealVideo" class="reveal-video" playsinline preload="none">
+        <source src="video/parejaReveal.mp4" type="video/mp4">
+      </video>
+      <button class="reveal-cover" id="revealBtn" type="button" aria-label="Reproducir el video de Azul y Mariano">
+        <img class="reveal-img"
+             src="images/pareja2.jpg" data-base="images/pareja2" data-exts="jpg,jpeg,png,webp"
+             width="1068" height="1600" loading="lazy"
+             alt="Azul y Mariano besándose entre el humo del gender reveal">
+        <span class="reveal-play" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+      </button>
+    </div>
   </article>
 
   <!-- Confirmación de asistencia -->
   <article class="card rsvp">
     <span class="section-label">Confirmación de Asistencia</span>
     <h2>¿Nos acompañas?</h2>
-    <p>Será un gusto compartir este día contigo. Confirma tu asistencia para que podamos preparar todo con mucho cariño.</p>
-    <!-- TODO: reemplazar "#" por el link del formulario de confirmación de este evento -->
-    <a class="btn" target="_blank" rel="noopener" href="#">
-      Confirmar asistencia
+    <p>Será un gusto compartir este día contigo. Confirma tu asistencia por WhatsApp para que podamos preparar todo con mucho cariño.</p>
+    <!-- El link real se arma en script.js (WHATSAPP_NUMBER y WHATSAPP_MESSAGE) -->
+    <a class="btn" id="rsvpBtn" target="_blank" rel="noopener" href="https://wa.me/">
+      Confirmar por WhatsApp
     </a>
   </article>
 
@@ -208,7 +218,7 @@
 <!-- Footer -->
 <footer>
   <span class="footer-thanks">Gracias por acompañarnos a recibir a Aranthxa</span>
-  <span class="footer-names">Azul &amp; Luis</span>
+  <span class="footer-names">Azul &amp; Mariano</span>
   <span class="footer-heart">♥</span>
 </footer>
 

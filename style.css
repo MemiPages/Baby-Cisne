@@ -359,6 +359,75 @@ h2 {
   box-shadow: 0 6px 24px var(--shadow);
 }
 
+/* ── VIDEO DE LA PAREJA (la foto es la portada) ──────────── */
+.reveal {
+  position: relative;
+  width: min(100%, 320px);
+  aspect-ratio: 576 / 976;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 6px 24px var(--shadow);
+  background: var(--bg2);
+}
+.reveal-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.reveal-cover {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: block;
+}
+.reveal-cover:focus-visible {
+  outline: 3px solid var(--rose-dark);
+  outline-offset: -3px;
+}
+.reveal-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+.reveal-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(120, 80, 76, 0.55);
+  background: rgba(120, 80, 76, 0.78);
+  color: #FFF6F3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 3px;            /* centra ópticamente el triángulo */
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.25);
+  transition: background 0.2s;
+}
+.reveal-cover:hover .reveal-play { background: rgba(120, 80, 76, 0.95); }
+.reveal-play::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 246, 243, 0.8);
+  animation: musicPulse 2s ease-out infinite;
+}
+.reveal.playing .reveal-cover { display: none; }
+
 /* ── REPRODUCTOR DE LATIDOS ──────────────────────────────── */
 .heart-player {
   display: flex;
@@ -719,7 +788,7 @@ footer::before {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .card { transition: none; }
-  .scroll-hint, .music-btn::after, .heart-btn::after, .heart-player.playing .heart-btn svg, .footer-heart { animation: none; }
+  .scroll-hint, .music-btn::after, .heart-btn::after, .reveal-play::after, .heart-player.playing .heart-btn svg, .footer-heart { animation: none; }
   .hero-inner, .eyebrow, .hero-swans, h1, .hero-hosts, .date-badge, .hero-quote {
     animation: none;
     opacity: 1;
