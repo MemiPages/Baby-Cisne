@@ -251,7 +251,7 @@ if (!reduceMotion) {
 
 // ── CONFIRMAR ASISTENCIA POR WHATSAPP ───────────────────────
 // Pon aquí el número: código de país + número, solo dígitos.
-// Ejemplo para México: '526561234567'  (52 + 10 dígitos)
+// Ejemplo para México: '526563316144'  (52 + 10 dígitos)
 // Mientras esté vacío, el botón abre WhatsApp para elegir contacto (útil para probar).
 const WHATSAPP_NUMBER  = '';
 const WHATSAPP_MESSAGE = 'Hola, confirmo mi asistencia al baby shower de Aranthxa Yamel el domingo 1 de noviembre. Mi nombre es: ';
