@@ -192,6 +192,16 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ── FALLING FEATHERS ────────────────────────────────────────
+// Mientras suena el video se detienen las plumas y animaciones para que
+// el celular use todos sus recursos en reproducir el video sin trabarse.
+let videoPlaying = false;
+const setVideoPlaying = (on) => {
+  videoPlaying = on;
+  document.body.classList.toggle('video-playing', on);
+};
+reveal.addEventListener('play',  () => setVideoPlaying(true));
+reveal.addEventListener('pause', () => setVideoPlaying(false));
+reveal.addEventListener('ended', () => setVideoPlaying(false));
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Colores: rosa y beige en toda la página, blanco en el hero
@@ -234,14 +244,14 @@ function spawnFeather(container, hero) {
 if (!reduceMotion) {
   // Plumas rosas/beige en toda la página
   const featherLayer = document.getElementById('feathers');
-  const createFeather = () => { if (!document.hidden) spawnFeather(featherLayer, false); };
+  const createFeather = () => { if (!document.hidden && !videoPlaying) spawnFeather(featherLayer, false); };
   setInterval(createFeather, 1400);
   for (let i = 0; i < 5; i++) setTimeout(createFeather, i * 600);
 
   // Plumas blancas solo en el hero (y solo mientras es visible)
   const hero = document.querySelector('.hero');
   const createHeroFeather = () => {
-    if (!hero || document.hidden) return;
+    if (!hero || document.hidden || videoPlaying) return;
     if (hero.getBoundingClientRect().bottom < 0) return;
     spawnFeather(hero, true);
   };
@@ -253,7 +263,7 @@ if (!reduceMotion) {
 // Pon aquí el número: código de país + número, solo dígitos.
 // Ejemplo para México: '526563316144'  (52 + 10 dígitos)
 // Mientras esté vacío, el botón abre WhatsApp para elegir contacto (útil para probar).
-const WHATSAPP_NUMBER  = '';
+const WHATSAPP_NUMBER  = '526563316144';
 const WHATSAPP_MESSAGE = 'Hola, confirmo mi asistencia al baby shower de Aranthxa Yamel el domingo 1 de noviembre. Mi nombre es: ';
 
 document.getElementById('rsvpBtn').href =

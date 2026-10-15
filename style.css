@@ -794,3 +794,13 @@ footer::before {
     opacity: 1;
   }
 }
+
+/* ── MIENTRAS SUENA EL VIDEO: menos carga para el celular ───── */
+.video-playing .feathers-container,
+.video-playing .feather,
+.video-playing .feather-hero { display: none; }
+.video-playing .music-btn::after,
+.video-playing .heart-btn::after,
+.video-playing .reveal-play::after,
+.video-playing .footer-heart,
+.video-playing .scroll-hint { animation: none; }
