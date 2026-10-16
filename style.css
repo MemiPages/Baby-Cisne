@@ -275,25 +275,7 @@ h2 {
   text-transform: uppercase;
   color: var(--rose-dark);
   font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.ornament-line {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 24px;
-  color: var(--rose);
-  font-size: 0.85rem;
-}
-.ornament-line::before, .ornament-line::after {
-  content: '';
-  flex: 1;
-  max-width: 60px;
-  height: 1px;
-  background: var(--rose);
-  opacity: 0.5;
+  margin-bottom: 20px;
 }
 
 .countdown {
@@ -819,3 +801,38 @@ footer::before {
 .reveal-video::-webkit-media-controls-panel,
 .reveal-video::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
 .video-player.playing .heart-btn svg { animation: none; }   /* sin latido: aquí son iconos de play/pausa */
+
+/* ── HORARIO ─────────────────────────────────────────────── */
+.schedule { text-align: center; }
+.schedule-list {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  text-align: left;
+}
+.schedule-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--border);
+}
+.schedule-list li:last-child { border-bottom: none; }
+.sch-time {
+  flex: 0 0 112px;
+  font-size: 0.78rem;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  color: var(--rose-dark);
+  white-space: nowrap;
+}
+.sch-act {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text);
+}
+@media (max-width: 380px) {
+  .schedule-list li { gap: 12px; }
+  .sch-time { flex-basis: 98px; letter-spacing: 1px; }
+}
